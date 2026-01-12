@@ -101,7 +101,12 @@ any point.
    - Core functionality works anywhere OpenStreetMap coverage exists  
    - No country-specific hardcoding required
 
-5. Upgradeable architecture  
+5. Unit and language independence  
+   - All internal calculations use metric units  
+   - Presentation supports metric and imperial systems  
+   - Analytics are language-agnostic by design
+
+6. Upgradeable architecture  
    - Licensed or paid datasets can be added later without redesign
 
 ---
@@ -121,10 +126,28 @@ any point.
 
 ### Phase 3 — Competition & Density Analysis
 
-- Distance-weighted competitor analysis
-- Business clustering and saturation metrics
-- Identification of underserved industries and sub-industries
-- Support for both fixed-location and mobile businesses
+Phase 3 models the **competitive terrain** of a location in an objective and
+explainable way. It does not provide business advice, but produces structured
+signals that later phases reason over.
+
+Key capabilities include:
+
+- Distance-weighted competition analysis (metric internally)
+- Industry-normalized density tolerance
+- Anchor-weighted competitor influence  
+  (e.g., hospitals, offices, educational institutions, recreation)
+- Explicit distinction between:
+  - **baseline population density**, and
+  - **demand anchors**, which amplify demand beyond population alone
+- Effective competition scoring (beyond raw counts)
+- Detection of spatial patterns (clustered, dispersed, corridor-based)
+- Identification of dominant competitors and competitive imbalance
+- Generation of **competitive advantage vectors**, describing where competitors
+  derive strength (e.g., anchor proximity, centrality, clustering)
+
+Phase 3 outputs are deterministic, comparable across locations, and explicitly
+designed to **enable strategic reasoning** in later phases without embedding
+prescriptive judgment.
 
 ---
 
@@ -139,7 +162,7 @@ These signals are inferred analytics, not observed consumer ratings or prices.
 #### Reputation Signal Examples
 - Business longevity and survival density
 - Brand vs independent presence
-- Proximity to demand anchors (tourism, offices, transit)
+- Proximity to demand anchors
 - Opening-hours intensity
 - Stability of similar businesses in the surrounding area
 
@@ -167,10 +190,12 @@ scores.
 
 - Retrieval-Augmented Generation (RAG)
 - LLM receives only structured internal analytics
+- Multilingual explanation support
 - No external browsing or uncontrolled generation
 - Output focuses on explanation, trade-offs, uncertainty, and business reasoning
 
-The LLM acts as a business analyst, not a predictor or oracle.
+The LLM synthesizes strategic suggestions using Phase 3–5 signals but does not
+replace analytical computation.
 
 ---
 
@@ -179,13 +204,12 @@ The LLM acts as a business analyst, not a predictor or oracle.
 For a user exploring a café concept in a specific urban area, LocatorisLLM may
 surface insights such as:
 
-- Food & beverage businesses are moderately saturated, but cafés are
-  underrepresented relative to nearby offices and recreation.
-- The surrounding area supports mid-range pricing, with limited premium
-  competition.
-- Evening demand is stronger than morning demand due to nearby leisure
-  activities.
-- A mobile or hybrid setup may reduce initial risk due to variable foot traffic.
+- Food & beverage businesses are within expected density, but cafés are
+  underrepresented near office and recreation anchors.
+- One dominant competitor captures most anchor-driven demand, while peripheral
+  areas show lower effective competition.
+- Competitive advantage vectors suggest differentiation through format,
+  mobility, or pricing rather than direct substitution.
 
 Insights are presented with context and confidence, not as guarantees.
 
@@ -209,8 +233,6 @@ this functionality is designed and built into the system from the start.
 
 ## 7. System Architecture
 
-### 7.1 High-Level Architecture
-
 [ Open Data Sources ]
         ↓
 [ Ingestion & Normalization ]
@@ -229,26 +251,6 @@ this functionality is designed and built into the system from the start.
 
 ---
 
-### 7.2 Backend Stack
-
-- Language: Python 3.11
-- API Framework: FastAPI
-- Core Data Sources:
-  - OpenStreetMap (POIs, roads, land use)
-  - Overpass API
-  - Public population and urban datasets
-- Enrichment Sources (optional, compliant):
-  - Wikidata
-  - Open city and tourism datasets
-- Database (planned):
-  - SQLite (development)
-  - PostgreSQL + PostGIS (scaling)
-- LLM Usage:
-  - Explanation and synthesis only
-  - Never treated as a factual source
-
----
-
 ## 8. Data, Compliance & Risk Mitigation
 
 ### 8.1 Explicit Non-Goals
@@ -261,25 +263,13 @@ LocatorisLLM explicitly does NOT:
 
 ---
 
-### 8.2 Compliance & Risk Mitigation
-
-| Risk | Mitigation |
-|---|---|
-| Licensing violations | Use OSM-compatible licenses with attribution |
-| Platform ToS violations | No scraping of closed platforms |
-| Privacy exposure | Aggregate-only analysis |
-| Overconfidence | Confidence bands and assumption disclosure |
-| LLM hallucination | RAG constrained to internal analytics |
-
----
-
 ## 9. Success Metrics
 
 - Median analysis response time under defined load
 - Coverage completeness for mapped business categories
+- Stability of competition signals under small input changes
 - User-reported agreement with insights
-- Stability of recommendations under small input changes
-- Clarity of explanations for non-technical users
+- Clarity of explanations across languages
 
 ---
 
@@ -295,7 +285,7 @@ LocatorisLLM explicitly does NOT:
 ## 11. Roadmap Summary
 
 - Phase 2: Ontology & classification ✅
-- Phase 3: Competition & gap analysis
+- Phase 3: Competition & density analysis (enhanced)
 - Phase 4: Reputation & price signals
 - Phase 5: Temporal & behavioral modeling
 - Phase 6: Chat-based interface with RAG
