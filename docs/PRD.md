@@ -37,7 +37,7 @@ Existing tools either:
 - rely on closed, expensive, or legally restrictive datasets.
 
 LocatorisLLM addresses this gap by combining open geographic data, deterministic
-analytics, and LLM-based explanation to produce defensible insights, not scraped
+analytics, and structured reasoning to produce defensible insights, not scraped
 opinions or opaque scores.
 
 ---
@@ -65,16 +65,16 @@ The system is designed so that:
 LocatorisLLM supports multiple interaction paths to accommodate different user
 intent and experience levels:
 
-1. Map-First Exploration  
+1. **Map-First Exploration**  
    Users may freely explore geographic areas on a map to understand existing
    business presence, clustering, and contextual activity.
 
-2. Chat-First Analysis  
+2. **Chat-First Analysis**  
    Users may directly ask natural-language questions (e.g., “Is this a good area
    for a mid-range café?”). The system interprets intent and triggers the
    relevant analytical pipelines.
 
-3. Dashboard-on-Demand  
+3. **Dashboard-on-Demand**  
    When deeper insights are requested, LocatorisLLM generates structured
    analytics (charts, metrics, comparisons) associated with the user’s query.
 
@@ -85,46 +85,64 @@ any point.
 
 ## 4. Core Design Principles
 
-1. Compliance-first  
+1. **Compliance-first**  
    - No scraping of closed platforms (e.g., Google Maps, Yelp, TripAdvisor)  
    - Only open or permissively licensed data sources are used
 
-2. Explainability over certainty  
+2. **Explainability over certainty**  
    - All insights are reasoned, not asserted  
    - Assumptions and uncertainty are made explicit
 
-3. Business behavior over raw data  
+3. **Business behavior over raw data**  
    - Industries are defined by economic behavior, not tag families  
    - Signals are interpreted contextually
 
-4. Global by default  
+4. **Global by default**  
    - Core functionality works anywhere OpenStreetMap coverage exists  
    - No country-specific hardcoding required
 
-5. Unit and language independence  
+5. **Unit and language independence**  
    - All internal calculations use metric units  
    - Presentation supports metric and imperial systems  
    - Analytics are language-agnostic by design
 
-6. Upgradeable architecture  
+6. **Upgradeable architecture**  
    - Licensed or paid datasets can be added later without redesign
 
 ---
 
 ## 5. Product Scope & Phases
 
+### Phase 0 — Foundations & Governance (Completed)
+
+- Product vision and non-goals
+- Compliance-first data policy
+- Phase-based architecture and acceptance criteria
+- Versioned PRD and documentation discipline
+
+---
+
+### Phase 1 — Data Ingestion & Normalization (Completed)
+
+- Approved open data sources (OSM and similar)
+- Ingestion of business, anchor, and contextual entities
+- Separation of raw data from normalized analytical representations
+- Documented coverage gaps and data limitations
+
+---
+
 ### Phase 2 — Business Ontology & Classification (Completed)
 
 - Canonical industry and sub-industry registry
 - Deterministic classification from map-based tags
-- Explicit separation between raw data namespaces (e.g., tourism=*) and
+- Explicit separation between raw data namespaces (e.g., `tourism=*`) and
   economic roles (e.g., hospitality vs culture)
 - Coverage across healthcare, food, retail, education, tourism, recreation,
   professional services, and informal economy
 
 ---
 
-### Phase 3 — Competition & Density Analysis
+### Phase 3 — Competition & Density Analysis (Completed)
 
 Phase 3 models the **competitive terrain** of a location in an objective and
 explainable way. It does not provide business advice, but produces structured
@@ -151,13 +169,13 @@ prescriptive judgment.
 
 ---
 
-### Phase 4 — Reputation & Price Signal Modeling
+### Phase 4 — Reputation & Price Signal Modeling (Planned)
 
 LocatorisLLM does not collect or store consumer reviews or actual prices.
-Instead, it models per-business probabilistic signals that approximate reputation
+Instead, it models per-business **inferred signals** that approximate reputation
 and price positioning.
 
-These signals are inferred analytics, not observed consumer ratings or prices.
+These signals are analytical proxies, not observed consumer ratings or prices.
 
 #### Reputation Signal Examples
 - Business longevity and survival density
@@ -177,7 +195,7 @@ scores.
 
 ---
 
-### Phase 5 — Temporal & Behavioral Analysis
+### Phase 5 — Temporal & Behavioral Analysis (Planned)
 
 - Time-of-day and day-of-week demand proxies
 - Recreation, tourism, and event spillover effects
@@ -186,16 +204,40 @@ scores.
 
 ---
 
-### Phase 6 — LLM Reasoning Layer (RAG)
+### Phase 6 — Reasoning & Explanation Layer (Planned)
 
-- Retrieval-Augmented Generation (RAG)
-- LLM receives only structured internal analytics
-- Multilingual explanation support
+This phase introduces structured reasoning over analytical outputs.
+
+Key properties:
+
+- The reasoning layer receives **only internal analytics**, not raw data
+- It may use LLMs, rule-based systems, or hybrids (to be researched)
 - No external browsing or uncontrolled generation
-- Output focuses on explanation, trade-offs, uncertainty, and business reasoning
+- Multilingual explanation support
+- Focus on:
+  - explanation
+  - trade-offs
+  - uncertainty
+  - strategic alternatives
 
-The LLM synthesizes strategic suggestions using Phase 3–5 signals but does not
-replace analytical computation.
+The reasoning layer **does not replace analytical computation** and does not
+override deterministic metrics from earlier phases.
+
+---
+
+### Phase 7 — Dashboards & Projects (Planned)
+
+- On-demand analytics dashboards
+- Visualization of metrics and comparisons
+- Project-based saving of in-depth analyses
+
+---
+
+### Phase 8 — User Accounts & Access (Planned)
+
+- Email-based authentication
+- Device trust and session management (future)
+- Tiered access to advanced features (future)
 
 ---
 
@@ -234,20 +276,21 @@ this functionality is designed and built into the system from the start.
 ## 7. System Architecture
 
 [ Open Data Sources ]
-        ↓
+↓
 [ Ingestion & Normalization ]
-        ↓
+↓
 [ Industry Classification ]
-        ↓
+↓
 [ Competition & Density Metrics ]
-        ↓
+↓
 [ Reputation & Price Signals ]
-        ↓
-[ Insight Assembly ]
-        ↓
-[ RAG + LLM Explanation ]
-        ↓
+↓
+[ Temporal & Behavioral Modeling ]
+↓
+[ Reasoning & Explanation Layer ]
+↓
 [ API / UI ]
+
 
 ---
 
@@ -284,10 +327,16 @@ LocatorisLLM explicitly does NOT:
 
 ## 11. Roadmap Summary
 
-- Phase 2: Ontology & classification ✅
-- Phase 3: Competition & density analysis (enhanced)
-- Phase 4: Reputation & price signals
-- Phase 5: Temporal & behavioral modeling
-- Phase 6: Chat-based interface with RAG
-- Phase 7: Dashboard generation & projects
-- Phase 8: User accounts, saving, tiered access
+- Phase 0: Foundations & governance ✅  
+- Phase 1: Data ingestion & normalization ✅  
+- Phase 2: Ontology & classification ✅  
+- Phase 3: Competition & density analysis ✅  
+- Phase 4: Reputation & price signals  
+- Phase 5: Temporal & behavioral modeling  
+- Phase 6: Reasoning & explanation layer  
+- Phase 7: Dashboards & projects  
+- Phase 8: User accounts & tiered access  
+
+---
+
+### End of PRD
