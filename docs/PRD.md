@@ -19,6 +19,11 @@ The system is built entirely on compliant, open, and legally redistributable
 data sources, with an architecture that supports future upgrades to licensed
 data without redesign.
 
+LocatorisLLM is designed as a deterministic-first system. All analytical metrics,
+scores, classifications, and signals are computed using explicit algorithms
+before any reasoning or explanation occurs. Interpretive components operate only
+on finalized analytical outputs.
+
 ---
 
 ## 2. Problem Statement
@@ -40,6 +45,11 @@ LocatorisLLM addresses this gap by combining open geographic data, deterministic
 analytics, and structured reasoning to produce defensible insights, not scraped
 opinions or opaque scores.
 
+All questions addressed by LocatorisLLM are treated as structural analysis
+problems. The system evaluates spatial distribution, density, proximity, and
+contextual relationships rather than attempting to forecast outcomes, revenue,
+or success.
+
 ---
 
 ## 3. Target Users
@@ -57,6 +67,10 @@ opinions or opaque scores.
 The system is designed so that:
 - casual users can explore freely and intuitively, and
 - advanced users can request deeper analytical insight when needed.
+
+LocatorisLLM supports a spectrum of user sophistication. All users access the
+same analytical foundation; differences in experience are limited to the depth
+and framing of explanations.
 
 ---
 
@@ -80,6 +94,10 @@ intent and experience levels:
 
 Users may switch freely between map exploration and conversational analysis at
 any point.
+
+Conversational interaction may be presented through an assistant-style interface
+to improve approachability. This assistant acts solely as a presentation and
+explanation layer and does not introduce new analytical capabilities.
 
 ---
 
@@ -108,6 +126,10 @@ any point.
 
 6. **Upgradeable architecture**  
    - Licensed or paid datasets can be added later without redesign
+
+Compliance is enforced structurally through architectural constraints. The system
+is incapable of ingesting proprietary data sources or emitting legal, financial,
+or investment advice.
 
 ---
 
@@ -163,9 +185,10 @@ Key capabilities include:
 - Generation of **competitive advantage vectors**, describing where competitors
   derive strength (e.g., anchor proximity, centrality, clustering)
 
-Phase 3 outputs are deterministic, comparable across locations, and explicitly
-designed to **enable strategic reasoning** in later phases without embedding
-prescriptive judgment.
+Distance-based influence is modeled using continuous decay functions rather than
+binary radii. Anchor influence varies by industry and reflects demand
+amplification rather than guaranteed patronage. Density tolerance normalizes
+competitive pressure based on industry-specific operating characteristics.
 
 ---
 
@@ -177,21 +200,9 @@ and price positioning.
 
 These signals are analytical proxies, not observed consumer ratings or prices.
 
-#### Reputation Signal Examples
-- Business longevity and survival density
-- Brand vs independent presence
-- Proximity to demand anchors
-- Opening-hours intensity
-- Stability of similar businesses in the surrounding area
-
-#### Price Position Signal Examples
-- Surrounding business mix (utility vs premium)
-- Land-use and zoning context
-- Proximity to premium or budget anchors
-- Industry-specific pricing norms
-
-Signals are combined into confidence-weighted assessments rather than absolute
-scores.
+Reputation and price are inferred structurally using contextual stability,
+business mix, longevity patterns, and anchor proximity. Signals are combined into
+confidence-weighted assessments rather than absolute scores.
 
 ---
 
@@ -202,26 +213,38 @@ scores.
 - Adaptive time windows inferred from data, not hardcoded
 - Mobility-aware reasoning for mobile businesses
 
+Temporal demand is inferred from contextual activity distributions and land-use
+patterns rather than explicit footfall or real-time tracking.
+
 ---
 
 ### Phase 6 — Reasoning & Explanation Layer (Planned)
 
 This phase introduces structured reasoning over analytical outputs.
 
+The reasoning layer is explicitly designed as an interpretive system. It does not
+compute metrics, retrieve data, rank options, optimize outcomes, or make
+predictions.
+
 Key properties:
 
-- The reasoning layer receives **only internal analytics**, not raw data
-- It may use LLMs, rule-based systems, or hybrids (to be researched)
-- No external browsing or uncontrolled generation
+- The reasoning layer receives only finalized internal analytics
+- Reasoning operates on a frozen analytical snapshot
+- No external browsing, scraping, or uncontrolled generation
 - Multilingual explanation support
-- Focus on:
-  - explanation
-  - trade-offs
-  - uncertainty
-  - strategic alternatives
+- Focus on explanation, trade-offs, uncertainty, and structural comparison
 
-The reasoning layer **does not replace analytical computation** and does not
-override deterministic metrics from earlier phases.
+The reasoning layer may compare strategic formats (e.g., mobile vs fixed),
+positioning bands, or temporal focus only in terms of relative structural
+alignment with observed signals.
+
+The reasoning layer must refuse to answer when analytical coverage is
+insufficient, signals are irreconcilably conflicting, or a question exceeds
+system scope.
+
+Reasoning may support controlled counterfactuals involving a single hypothetical
+change (e.g., time window or business category). Counterfactuals must be clearly
+labeled, non-stacked, and grounded in existing analytics.
 
 ---
 
@@ -230,6 +253,9 @@ override deterministic metrics from earlier phases.
 - On-demand analytics dashboards
 - Visualization of metrics and comparisons
 - Project-based saving of in-depth analyses
+
+Dashboards display metrics and indicators but do not contain interpretation.
+Interpretation is exclusively provided through the reasoning layer.
 
 ---
 
@@ -253,44 +279,32 @@ surface insights such as:
 - Competitive advantage vectors suggest differentiation through format,
   mobility, or pricing rather than direct substitution.
 
-Insights are presented with context and confidence, not as guarantees.
-
----
-
-## 6.1 Projects & Saved Analyses
-
-LocatorisLLM treats each in-depth analysis as a discrete project, which may
-include:
-- the original query
-- assumptions and parameters
-- generated metrics and charts
-- explanatory insights
-
-Projects allow users to revisit, refine, and compare analyses over time.
-
-While saving and managing projects may be gated behind paid tiers in the future,
-this functionality is designed and built into the system from the start.
+Insights are presented with context, uncertainty, and structural framing, not as
+guarantees.
 
 ---
 
 ## 7. System Architecture
 
-[ Open Data Sources ]
-↓
-[ Ingestion & Normalization ]
-↓
-[ Industry Classification ]
-↓
-[ Competition & Density Metrics ]
-↓
-[ Reputation & Price Signals ]
-↓
-[ Temporal & Behavioral Modeling ]
-↓
-[ Reasoning & Explanation Layer ]
-↓
+[ Open Data Sources ]  
+↓  
+[ Ingestion & Normalization ]  
+↓  
+[ Industry Classification ]  
+↓  
+[ Competition & Density Metrics ]  
+↓  
+[ Reputation & Price Signals ]  
+↓  
+[ Temporal & Behavioral Modeling ]  
+↓  
+[ Reasoning & Explanation Layer ]  
+↓  
 [ API / UI ]
 
+The system architecture enforces strict separation of concerns. Analytical layers
+compute structure, the reasoning layer interprets structure, and presentation
+layers render results.
 
 ---
 
@@ -303,6 +317,10 @@ LocatorisLLM explicitly does NOT:
 - store or redistribute proprietary reviews or prices
 - track individuals or personal real-time movement
 - provide financial, legal, or investment advice
+
+Legal and regulatory knowledge is treated as contextual constraints rather than
+advice. Jurisdiction-specific rules may be referenced to explain feasibility
+boundaries but never to prescribe compliance actions.
 
 ---
 
